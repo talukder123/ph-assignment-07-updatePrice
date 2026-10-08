@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
-import HeaderSectoin from "@/Components/header";
-import Navlinks from "@/Components/navlinks";
-import MarqueeSection from "@/Components/Marquee";
+import Navbar from "@/Components/Navbar";
+
 
 const notoSansBengali = Noto_Sans_Bengali({
   subsets: ["latin", "bengali"],
@@ -23,10 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${notoSansBengali.className} h-full antialiased`}
     >
       <body className="min-h-full">
-
-        <HeaderSectoin></HeaderSectoin>
-        <Navlinks></Navlinks>
-        <MarqueeSection></MarqueeSection>
+        <Navbar></Navbar>
         {children}
         
       </body>
