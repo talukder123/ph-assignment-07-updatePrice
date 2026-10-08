@@ -8,7 +8,7 @@ const bannerSection = () => {
     })
 
     return (
-        <div className="max-w-7xl mx-auto border border-gray-300 rounded-2xl py-6 px-6 md:px-10 flex flex-col-reverse md:flex-row justify-between items-center gap-6">
+        <div className="mt-7 max-w-7xl mx-auto border border-gray-200 rounded-2xl py-6 px-6 md:px-10 flex flex-col-reverse md:flex-row justify-between items-center gap-6">
 
 
             <div className="space-y-4">
