@@ -8,8 +8,8 @@ const Navbar = () => {
     return (
         <div>
             <HeaderSectoin></HeaderSectoin>
-        <Navlinks></Navlinks>
-        <MarqueeSection></MarqueeSection>
+            <Navlinks></Navlinks>
+            <MarqueeSection></MarqueeSection>
         </div>
     );
 };
