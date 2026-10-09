@@ -60,7 +60,7 @@ const CategoryWiseItem = async ({ params }:IProps) => {
 
     return (
         <div>
-            <div className=' flex items-center max-w-7xl mx-auto mt-9 border border-gray-100 rounded-2xl p-5'>
+            <div className=' bg-white flex items-center max-w-7xl mx-auto mt-9 border border-gray-100 rounded-2xl p-5'>
                 <span className='text-5xl'>{headingData.icon}</span>
                 <div>
                     <h1 className='text-3xl font-semibold'>{headingData.nameBn}</h1>
@@ -69,7 +69,7 @@ const CategoryWiseItem = async ({ params }:IProps) => {
 
             </div>
 
-            <div className='max-w-7xl mx-auto mt-9 border border-gray-100 rounded-2xl p-5'>
+            <div className='bg-white max-w-7xl mx-auto mt-9 border border-gray-100 rounded-2xl p-5'>
                 <p>SEARCH_BAR</p>
             </div>
 

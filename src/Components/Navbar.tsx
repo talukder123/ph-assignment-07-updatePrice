@@ -6,7 +6,7 @@ import MarqueeSection from "@/Components/NavComponents/Marquee";
 
 const Navbar = () => {
     return (
-        <div>
+        <div className='bg-white'>
             <HeaderSectoin></HeaderSectoin>
             <Navlinks></Navlinks>
             <MarqueeSection></MarqueeSection>

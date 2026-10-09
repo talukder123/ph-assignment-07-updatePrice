@@ -22,7 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       
       className={`${notoSansBengali.className} h-full antialiased`}
     >
-      <body className="min-h-full">
+      <body className=" bg-[#f3f6f2] min-h-screen">
         <Navbar></Navbar>
         {children}
         <FooterSection></FooterSection>
