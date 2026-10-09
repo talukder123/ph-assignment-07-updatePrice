@@ -78,7 +78,7 @@ const AllProducts = async () => {
             </div>
 
             {/* all */}
-            <div className='mt-9'>
+            <div id='all' className='mt-9'>
                 <h1 className='text-[28px]'>সব পণ্য</h1>
                 <p className='text-[20px] text-gray-500'>মোট {totalBn}টি পণ্য দেখানো হচ্ছে</p>
 
