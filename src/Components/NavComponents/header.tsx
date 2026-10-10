@@ -29,8 +29,8 @@ const HeaderSectoin = () => {
             </div>
 
             <div className='flex gap-3'>
-                <button className="btn btn-soft btn-success">সাইন আপ</button>
-                <button className="btn btn-success">সাইন ইন</button>
+                <Link href={"/sign-up"}><button className="btn btn-soft btn-success">সাইন আপ</button></Link>
+                <Link href={"/sign-in"}><button className="btn btn-success">সাইন ইন</button></Link>
             </div>
             
         </div>
