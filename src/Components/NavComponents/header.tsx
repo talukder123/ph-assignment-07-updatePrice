@@ -5,7 +5,6 @@ import React from 'react';
 import logoImg from '@/assets/logo-icon.png'
 import Link from 'next/link';
 import { authClient, useSession } from '@/lib/auth-client';
-import { useRouter } from 'next/navigation';
 
 const date = new Date().toLocaleString("bn-BD", {
     dateStyle: "full"
@@ -14,7 +13,6 @@ const date = new Date().toLocaleString("bn-BD", {
 const HeaderSectoin = () => {
 
     const { data: session } = useSession();
-    const router = useRouter();
 
     const handleLogOut = async () => {
     const { error } = await authClient.signOut();
@@ -105,8 +103,9 @@ const HeaderSectoin = () => {
                         </div>
                     ) : (
                         <>
-                            <Link href={"/sign-up"}><button className="btn btn-soft btn-success">সাইন আপ</button></Link>
-                            <Link href={"/sign-in"}><button className="btn btn-success">সাইন ইন</button></Link>
+                            <Link href={"/sign-in"}><button className="btn btn-ghost">সাইন ইন</button></Link>
+                            <Link href={"/sign-up"}><button className="btn btn-primary shadow-lg">সাইন আপ</button></Link>
+                            
                         </>
                     )
                 }
