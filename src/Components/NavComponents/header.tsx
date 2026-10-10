@@ -17,14 +17,15 @@ const HeaderSectoin = () => {
     const router = useRouter();
 
     const handleLogOut = async () => {
-        await authClient.signOut({
-            fetchOptions: {
-                onSuccess: () => {
-                    router.push("/sign-in");
-                },
-            },
-        });
+    const { error } = await authClient.signOut();
+    if (error) {
+        console.error(error);
+        return;
     }
+    window.location.assign("/sign-in");
+};
+
+
     console.log(session);
 
 
@@ -50,16 +51,64 @@ const HeaderSectoin = () => {
 
             <div className='flex gap-3'>
                 {
-                    session?.user ? <>
-                        <Link href={"/"}>
-                            <button onClick={handleLogOut}>LOG-OUT</button>
-                        </Link>
-                    </>
-                        :
+                    session?.user ? (
+                        <div className="dropdown dropdown-end">
+                            {/* ট্রিগার: ছবি + নাম + তীর */}
+                            <div
+                                tabIndex={0}
+                                role="button"
+                                className="flex cursor-pointer items-center gap-2 transition hover:opacity-80"
+                            >
+                                {session.user.image ? (
+                                    <Image
+                                        src={session.user.image}
+                                        alt={session.user.name}
+                                        width={36}
+                                        height={36}
+                                        referrerPolicy="no-referrer"
+                                        className="h-9 w-9 rounded-xl bg-gray-100 object-cover"
+                                    />
+                                ) : (
+                                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-green-600 text-sm font-semibold text-white">
+                                        {session.user.name?.charAt(0)}
+                                    </div>
+                                )}
+
+                                <span className="max-w-28 truncate text-base font-medium text-gray-900">
+                                    {session.user.name}
+                                </span>
+
+                                <svg
+                                    className="h-2.5 w-2.5 text-gray-500"
+                                    viewBox="0 0 10 10"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M1 2.5h8L5 8z" />
+                                </svg>
+                            </div>
+
+                            {/* ড্রপডাউন মেনু */}
+                            <ul
+                                tabIndex={0}
+                                className="dropdown-content menu z-10 mt-2 w-48 rounded-xl border border-gray-100 bg-white p-2 shadow-lg"
+                            >
+                                <li>
+                                    <Link href="/profile" className="cursor-pointer">প্রোফাইল</Link>
+                                </li>
+                                <li>
+                                    <button onClick={handleLogOut} className="cursor-pointer text-red-600">
+                                        সাইন আউট
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    ) : (
                         <>
                             <Link href={"/sign-up"}><button className="btn btn-soft btn-success">সাইন আপ</button></Link>
                             <Link href={"/sign-in"}><button className="btn btn-success">সাইন ইন</button></Link>
                         </>
+                    )
                 }
             </div>
 

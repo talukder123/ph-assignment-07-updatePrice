@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import {
     Button,
@@ -35,14 +36,19 @@ const SignUpPage = () => {
         }
         setErrors({});
 
-        const { data: signUpData, error } = await signUp.email({
+        const { error } = await signUp.email({
             name: data.name,
             email: data.email,
             password: data.password,
             callbackURL: "/",
         });
 
-        console.log(data, signUpData, error);
+        if (error) {
+            toast.error(error.message ?? 'অ্যাকাউন্ট তৈরি করা যায়নি');
+            return;
+        }
+
+        toast.success('অ্যাকাউন্ট তৈরি হয়েছে। যাচাই লিংকের জন্য ইমেইল চেক করুন।');
     };
 
     const LogIn = async () => {

@@ -4,7 +4,7 @@ import React from 'react';
 import { Button, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import Link from 'next/link';
 import { authClient, signIn } from '@/lib/auth-client';
-
+import { toast } from 'react-toastify';
 
 const SignInPage = () => {
 
@@ -25,7 +25,7 @@ const SignInPage = () => {
     });
 
     console.log(signInData, error);
-
+    toast.success('স্বাগতম! সফলভাবে সাইন ইন হয়েছে।');
   };
 
   const LogIn = async () => {
