@@ -12,7 +12,7 @@ export default interface IProduct {
     lastWeek: number;
     lastMonth: number;
     change: {
-        dir: "up" | "down";
+        dir: "up" | "down" | "flat";
         pct: number;
     };
     markets: {

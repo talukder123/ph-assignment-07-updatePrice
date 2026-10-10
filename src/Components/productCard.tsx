@@ -1,31 +1,8 @@
+import IProduct from '@/types/type';
 import Link from 'next/link';
 import React from 'react';
 import { FaCaretUp, FaCaretDown } from "react-icons/fa";
 
-interface IProduct {
-    id: number;
-    slug: string;
-    nameBn: string;
-    category: string;
-    categoryNameBn: string;
-    categoryIcon: string;
-    unit: string;
-    image: string;
-    today: number;
-    yesterday: number;
-    lastWeek: number;
-    lastMonth: number;
-    change: {
-        dir: "up" | "down";
-        pct: number;
-    };
-    markets: {
-        market: string;
-        division: string;
-        min: number;
-        max: number;
-    }[];
-}
 
 const toBn = (n: number) => n.toLocaleString("bn-BD");
 

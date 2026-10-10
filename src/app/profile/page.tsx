@@ -11,7 +11,8 @@ import {
     TextField,
 } from '@heroui/react';
 import { authClient, useSession } from '@/lib/auth-client';
-import toast, { Toaster } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
+import { Skeleton } from '@/Components/Skeleton';
 
 const ProfilePage = () => {
 
@@ -24,7 +25,7 @@ const ProfilePage = () => {
 
 
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
 
     const handleLogOut = async () => {
         const { error } = await authClient.signOut();
@@ -39,21 +40,51 @@ const ProfilePage = () => {
         e.preventDefault();
         const name = String(new FormData(e.currentTarget).get('name')).trim();
 
-        const { error } = await authClient.updateUser({ name });
-
-        if (error) {
-            toast.error(error.message ?? 'নাম আপডেট করা যায়নি');
-            return;
+        setLoading(true);
+        try {
+            const { error } = await authClient.updateUser({ name });
+            if (error) {
+                toast.error(error.message ?? 'নাম আপডেট করা যায়নি');
+                return;
+            }
+            toast.success('নাম সফলভাবে আপডেট হয়েছে');
+            await refetch();
+        } finally {
+            setLoading(false);
         }
+
 
         toast.success('নাম সফলভাবে আপডেট হয়েছে');
         await refetch();
-
-        
     };
 
-    if (isPending) {
-        return <p className="mx-auto max-w-3xl px-4 py-10 text-gray-500">লোড হচ্ছে...</p>;
+    if (isPending && !session) {
+        return (
+            <div className="min-h-screen bg-gray-50 px-4 py-8">
+                <div className="mx-auto w-full max-w-3xl">
+                    <Skeleton className="h-9 w-48 mb-2" />
+                    <Skeleton className="h-4 w-64 mb-6" />
+
+                    <div className="mb-6 flex items-center justify-between rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+                        <div className="flex items-center gap-4">
+                            <Skeleton className="h-16 w-16 rounded-2xl" />
+                            <div className="space-y-2">
+                                <Skeleton className="h-5 w-40" />
+                                <Skeleton className="h-4 w-52" />
+                            </div>
+                        </div>
+                        <Skeleton className="h-9 w-28" />
+                    </div>
+
+                    <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+                        <Skeleton className="h-6 w-20 mb-5" />
+                        <Skeleton className="h-4 w-12 mb-2" />
+                        <Skeleton className="h-11 w-full mb-4" />
+                        <Skeleton className="h-11 w-full" />
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     if (!session?.user) return null;
@@ -127,11 +158,6 @@ const ProfilePage = () => {
                                 <FieldError className="mt-1 text-xs text-red-600" />
                             </TextField>
 
-                            {message && (
-                                <p className={`text-sm ${message.type === 'success' ? 'text-green-700' : 'text-red-600'}`}>
-                                    {message.text}
-                                </p>
-                            )}
 
                             <Button
                                 type="submit"
