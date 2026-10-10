@@ -46,7 +46,7 @@ const fmt = (n: number) => toBn(Number.isInteger(n) ? n : n.toFixed(2).replace(/
 
 const getDetailData = async (productId: string): Promise<Product | null> => {
     const res = await fetch(
-        `https://api.abcz.workers.dev/api/bazardor/products/${productId}`,
+        `https://openapi.programming-hero.com/api/bazardor/products/${productId}`,
         { cache: "no-store" }
     );
 

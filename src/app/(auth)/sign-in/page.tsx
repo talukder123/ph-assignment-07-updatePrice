@@ -5,43 +5,50 @@ import { Button, FieldError, Form, Input, Label, TextField } from "@heroui/react
 import Link from 'next/link';
 import { authClient, signIn } from '@/lib/auth-client';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 const SignInPage = () => {
+  const router = useRouter();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data: Record<string, string> = {};
-    // Convert FormData to plain object
     formData.forEach((value, key) => {
       data[key] = value.toString();
     });
 
-    const { data: signInData, error } = await signIn.email({
+    const { error } = await signIn.email({
       email: data.email,
       password: data.password,
       rememberMe: true,
-      callbackURL: "/",
     });
 
-    console.log(signInData, error);
+    if (error) {
+      toast.error(error.message ?? 'সাইন ইন করা যায়নি');
+      return;
+    }
+
     toast.success('স্বাগতম! সফলভাবে সাইন ইন হয়েছে।');
+    router.push('/');
+    router.refresh();
   };
 
-  const LogIn = async () => {
-    const data = await authClient.signIn.social({
-      provider: "google",
-    });
+  const signInWithSocialProvider = async (provider: "google" | "github") => {
+    try {
+      const { error } = await authClient.signIn.social({
+        provider,
+        callbackURL: "/",
+      });
 
-    console.log(data);
+      if (error) {
+        toast.error(error.message ?? "সোশ্যাল সাইন ইন করা যায়নি");
+      }
+    } catch (error) {
+      console.error("Social sign-in failed", error);
+      toast.error(error instanceof Error ? error.message : "সোশ্যাল সাইন ইন করা যায়নি");
+    }
   };
-
-  const handleGithubSignIn = async () => {
-    const data = await authClient.signIn.social({
-      provider: "github",
-    });
-    console.log(data);
-  }
 
 
   return (
@@ -80,21 +87,8 @@ const SignInPage = () => {
 
             <TextField
               isRequired
-              minLength={8}
               name="password"
               type="password"
-              validate={(value) => {
-                if (value.length < 8) {
-                  return "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে";
-                }
-                if (!/[A-Z]/.test(value)) {
-                  return "কমপক্ষে একটি বড় হাতের (A-Z) অক্ষর থাকতে হবে";
-                }
-                if (!/[0-9]/.test(value)) {
-                  return "কমপক্ষে একটি সংখ্যা থাকতে হবে";
-                }
-                return null;
-              }}
             >
               <Label className="mb-1.5 block text-sm font-medium text-gray-800">পাসওয়ার্ড</Label>
               <Input
@@ -122,7 +116,7 @@ const SignInPage = () => {
           {/* সোশ্যাল বাটন */}
           <div className="grid grid-cols-2 gap-3">
             <Button
-              onClick={LogIn}
+              onClick={() => void signInWithSocialProvider("google")}
               type="button"
               className="rounded-xl! border! border-gray-200! bg-white! py-2.5! text-sm! font-medium! text-gray-800! hover:bg-gray-50!"
             >
@@ -135,7 +129,7 @@ const SignInPage = () => {
               Google দিয়ে চালিয়ে যান
             </Button>
             <Button
-              onClick={handleGithubSignIn}
+              onClick={() => void signInWithSocialProvider("github")}
               type="button"
               className="rounded-xl! border! border-gray-200! bg-white! py-2.5! text-sm! font-medium! text-gray-800! hover:bg-gray-50!"
             >
@@ -148,9 +142,9 @@ const SignInPage = () => {
 
           <p className="mt-5 text-center text-sm text-gray-600">
             অ্যাকাউন্ট নেই?{' '}
-            <a href="/sign-up" className="font-medium text-green-700 hover:underline">
+            <Link href="/sign-up" className="font-medium text-green-700 hover:underline">
               সাইন আপ করুন
-            </a>
+            </Link>
           </p>
         </div>
 

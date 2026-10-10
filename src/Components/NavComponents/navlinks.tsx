@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 
 const getCategroy = async () => {
-    const res = await fetch("https://api.abcz.workers.dev/api/bazardor/categories");
+    const res = await fetch("https://openapi.programming-hero.com/api/bazardor/categories");
     const data = await res.json();
     return data;
 }

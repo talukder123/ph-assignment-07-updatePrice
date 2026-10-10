@@ -7,12 +7,12 @@ type IProps = {
 };
 
 const CategoryHeadingData = async (categoryId: string) => {
-  const res = await fetch(`https://api.abcz.workers.dev/api/bazardor/categories/${categoryId}`);
+  const res = await fetch(`https://openapi.programming-hero.com//api/bazardor/categories/${categoryId}`);
   return res.json();
 };
 
 const CategoryWiseFilteredData = async (categoryId: string): Promise<IProduct[]> => {
-  const res = await fetch(`https://api.abcz.workers.dev/api/bazardor/products?category=${categoryId}`);
+  const res = await fetch(`https://openapi.programming-hero.com//api/bazardor/products?category=${categoryId}`);
   return res.json();
 };
 

@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 import {
     Button,
@@ -18,12 +19,14 @@ import Link from 'next/link';
 
 
 const SignUpPage = () => {
+    const router = useRouter();
 
     const [errors, setErrors] = useState<Record<string, string>>({});
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const formData = new FormData(e.currentTarget);
+        const form = e.currentTarget;
+        const formData = new FormData(form);
 
         const data: Record<string, string> = {};
         formData.forEach((value, key) => {
@@ -40,7 +43,7 @@ const SignUpPage = () => {
             name: data.name,
             email: data.email,
             password: data.password,
-            callbackURL: "/",
+            callbackURL: "/sign-in",
         });
 
         if (error) {
@@ -48,23 +51,26 @@ const SignUpPage = () => {
             return;
         }
 
-        toast.success('অ্যাকাউন্ট তৈরি হয়েছে। যাচাই লিংকের জন্য ইমেইল চেক করুন।');
+        toast.success('অ্যাকাউন্ট তৈরি হয়েছে');
+        form.reset();
+        router.push('/sign-in');
     };
 
-    const LogIn = async () => {
-        const data = await authClient.signIn.social({
-            provider: "google",
-        });
+    const signInWithSocialProvider = async (provider: "google" | "github") => {
+        try {
+            const { error } = await authClient.signIn.social({
+                provider,
+                callbackURL: "/",
+            });
 
-        console.log(data);
+            if (error) {
+                toast.error(error.message ?? 'সোশ্যাল সাইন ইন করা যায়নি');
+            }
+        } catch (error) {
+            console.error("Social sign-in failed", error);
+            toast.error(error instanceof Error ? error.message : 'সোশ্যাল সাইন ইন করা যায়নি');
+        }
     };
-
-    const handleGithubSignIn = async () => {
-        const data = await authClient.signIn.social({
-            provider: "github",
-        });
-        console.log(data);
-    }
 
 
     return (
@@ -177,7 +183,7 @@ const SignUpPage = () => {
                     <div className="grid grid-cols-2 gap-3">
                         <button
                             type="button"
-                            onClick={LogIn}
+                            onClick={() => void signInWithSocialProvider("google")}
                             className="flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-2.5 text-sm font-medium text-gray-800 transition hover:bg-gray-50"
                         >
                             <svg className="h-4 w-4" viewBox="0 0 48 48" aria-hidden="true">
@@ -190,7 +196,7 @@ const SignUpPage = () => {
                         </button>
 
                         <button
-                            onClick={handleGithubSignIn}
+                            onClick={() => void signInWithSocialProvider("github")}
                             type="button"
                             className="flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-2.5 text-sm font-medium text-gray-800 transition hover:bg-gray-50"
                         >
