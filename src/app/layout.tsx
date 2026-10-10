@@ -3,7 +3,7 @@ import { Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/Components/Navbar";
 import FooterSection from "@/Components/Footer";
-import { Slide, ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 
 
 const notoSansBengali = Noto_Sans_Bengali({
@@ -27,16 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Navbar></Navbar>
         {children}
         <FooterSection></FooterSection>
-        <ToastContainer
-          position="top-center"
-          autoClose={3000}
-          hideProgressBar
-          closeButton={false}
-          newestOnTop
-          pauseOnHover={false}
-          theme="light"
-          transition={Slide}
-        />
+        <Toaster position="top-center" />
       </body>
     </html>
   );

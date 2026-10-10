@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { toast } from 'react-toastify';
+;
 import { useRouter } from 'next/navigation';
 
 import {
@@ -16,6 +16,7 @@ import {
 } from "@heroui/react";
 import { authClient, signUp } from '@/lib/auth-client';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 
 const SignUpPage = () => {

@@ -31,6 +31,7 @@ interface Product {
     markets: Market[];
 }
 
+
 const UNIT_BN: Record<string, string> = {
     kg: "কেজি",
     litre: "লিটার",
@@ -44,23 +45,42 @@ const toBn = (value: number | string) =>
 
 const fmt = (n: number) => toBn(Number.isInteger(n) ? n : n.toFixed(2).replace(/\.?0+$/, ""));
 
-const getDetailData = async (productId: string): Promise<Product | null> => {
-    const res = await fetch(
-        `https://openapi.programming-hero.com/api/bazardor/products/${productId}`,
-        { cache: "no-store" }
-    );
 
-    if (!res.ok) return null;
+const getDetailData = async ( productId: string): Promise<Product | null> => {
+    try {
+        const res = await fetch(
+            `https://openapi.programming-hero.com/api/bazardor/products/${productId}`,
+            { cache: "no-store" }
+        );
 
-    const json = await res.json();
-    return json.data ?? json;
+        if (!res.ok) {
+            throw new Error(`API Error: ${res.status}`);
+        }
+
+        const json = await res.json();
+        const product = json.data ?? json;
+
+        if (
+            !product ||
+            typeof product !== "object" ||
+            !Array.isArray(product.markets)
+        ) {
+            throw new Error("Invalid product response");
+        }
+
+        return product as Product;
+    } catch (error) {
+        console.error("Failed to fetch product details:", error);
+        return null;
+    }
 };
+
 
 const ProductDetailPage = async ({ params }: ProductDetailPageProps) => {
     const { productId } = await params;
     const product = await getDetailData(productId);
 
-    if (!product) {
+     if (!product) {
         return <div className="p-4">পণ্য পাওয়া যায়নি</div>;
     }
 
@@ -124,13 +144,12 @@ const ProductDetailPage = async ({ params }: ProductDetailPageProps) => {
                         </p>
                         <p className="text-xs text-gray-500">টাকা / {unit}</p>
                         <p
-                            className={`text-xs font-medium mt-1 ${
-                                isUp
+                            className={`text-xs font-medium mt-1 ${isUp
                                     ? "text-red-600"
                                     : isDown
-                                    ? "text-green-600"
-                                    : "text-gray-500"
-                            }`}
+                                        ? "text-green-600"
+                                        : "text-gray-500"
+                                }`}
                         >
                             {isUp ? "▲" : isDown ? "▼" : "–"} {fmt(product.change.pct)}%
                         </p>
@@ -196,9 +215,8 @@ const ProductDetailPage = async ({ params }: ProductDetailPageProps) => {
                                 {rows.map((m, i) => (
                                     <tr
                                         key={m.market}
-                                        className={`border-t border-gray-200 ${
-                                            i % 2 === 1 ? "bg-gray-50/60" : "bg-white"
-                                        }`}
+                                        className={`border-t border-gray-200 ${i % 2 === 1 ? "bg-gray-50/60" : "bg-white"
+                                            }`}
                                     >
                                         <td className="px-4 py-3 text-gray-800">{m.market}</td>
                                         <td className="px-4 py-3 text-gray-600">{m.division}</td>

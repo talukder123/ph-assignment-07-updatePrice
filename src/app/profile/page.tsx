@@ -11,16 +11,16 @@ import {
     TextField,
 } from '@heroui/react';
 import { authClient, useSession } from '@/lib/auth-client';
-import { toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ProfilePage = () => {
 
 
     const {
-    data: session,
-    isPending,
-    refetch,
-} = useSession();
+        data: session,
+        isPending,
+        refetch,
+    } = useSession();
 
 
     const [loading, setLoading] = useState(false);
@@ -36,20 +36,21 @@ const ProfilePage = () => {
     };
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const name = String(new FormData(e.currentTarget).get('name')).trim();
+        e.preventDefault();
+        const name = String(new FormData(e.currentTarget).get('name')).trim();
 
-    const { error } = await authClient.updateUser({ name });
+        const { error } = await authClient.updateUser({ name });
 
-if (error) {
-    toast.error(error.message ?? 'নাম আপডেট করা যায়নি');
-    return;
-}
+        if (error) {
+            toast.error(error.message ?? 'নাম আপডেট করা যায়নি');
+            return;
+        }
 
-await refetch();
+        toast.success('নাম সফলভাবে আপডেট হয়েছে');
+        await refetch();
 
-toast.success('নাম সফলভাবে আপডেট হয়েছে');
-};
+        
+    };
 
     if (isPending) {
         return <p className="mx-auto max-w-3xl px-4 py-10 text-gray-500">লোড হচ্ছে...</p>;

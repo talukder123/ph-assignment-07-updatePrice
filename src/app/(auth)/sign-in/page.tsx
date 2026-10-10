@@ -4,8 +4,10 @@ import React from 'react';
 import { Button, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import Link from 'next/link';
 import { authClient, signIn } from '@/lib/auth-client';
-import { toast } from 'react-toastify';
+
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+
 
 const SignInPage = () => {
   const router = useRouter();

@@ -18,10 +18,9 @@ export default function SortableProducts({ products }: { products: IProduct[] })
 
   return (
     <>
-      <div className="bg-white max-w-7xl mx-auto mt-9 border border-gray-100 rounded-2xl p-5 flex items-center justify-between">
-        <p>SEARCH_BAR</p>
+      <div className="bg-white max-w-7xl mx-auto mt-6 sm:mt-9 border border-gray-100 rounded-2xl p-4 sm:p-5 flex items-center justify-end">
 
-        <label className="flex items-center gap-2">
+        <label className="flex items-center gap-2 text-sm sm:text-base">
           সাজান:
           <select
             value={sortBy}
@@ -35,7 +34,7 @@ export default function SortableProducts({ products }: { products: IProduct[] })
         </label>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 max-w-7xl mx-auto mt-9 border border-gray-100 rounded-2xl p-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 max-w-7xl mx-auto mt-6 sm:mt-9 border border-gray-100 rounded-2xl p-4 sm:p-5">
         {sortedProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
