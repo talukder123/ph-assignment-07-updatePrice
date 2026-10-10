@@ -104,7 +104,7 @@ const HeaderSectoin = () => {
                     ) : (
                         <>
                             <Link href={"/sign-in"}><button className="btn btn-ghost">সাইন ইন</button></Link>
-                            <Link href={"/sign-up"}><button className="btn btn-primary shadow-lg">সাইন আপ</button></Link>
+                            <Link href={"/sign-up"}><button className="btn btn-success shadow-lg">সাইন আপ</button></Link>
                             
                         </>
                     )

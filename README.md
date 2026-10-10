@@ -92,9 +92,6 @@ bajar-dor/
 
 *The structure above is a simplified overview.*
 
-## 🌐 Live Demo
-
-[Visit BazarDor](https://bajar-dor.vercel.app/)
 
 ## ⚠️ Disclaimer
 
