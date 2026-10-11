@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 
 interface ProductDetailPageProps {
@@ -73,6 +74,10 @@ const getDetailData = async ( productId: string): Promise<Product | null> => {
         console.error("Failed to fetch product details:", error);
         return null;
     }
+};
+
+export const metadata: Metadata = {
+  title: "Details price",
 };
 
 

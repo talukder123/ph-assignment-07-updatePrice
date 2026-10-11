@@ -1,6 +1,7 @@
 
 import SortableProducts from '@/Components/SortableProducts';
 import IProduct from '@/types/type';
+import { Metadata } from 'next';
 import React from 'react';
 
 type IProps = {
@@ -10,6 +11,10 @@ type IProps = {
 type ICategory = {
   icon: string;
   nameBn: string;
+};
+
+export const metadata: Metadata = {
+  title: "Category",
 };
 
 const CategoryHeadingData = async (
