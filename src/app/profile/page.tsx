@@ -52,9 +52,7 @@ const ProfilePage = () => {
         } finally {
             setLoading(false);
         }
-
-
-        toast.success('নাম সফলভাবে আপডেট হয়েছে');
+        
         await refetch();
     };
 
