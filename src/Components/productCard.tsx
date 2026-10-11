@@ -1,7 +1,6 @@
 import IProduct from '@/types/type';
 import Link from 'next/link';
 import React from 'react';
-import { FaCaretUp, FaCaretDown } from "react-icons/fa";
 
 
 const toBn = (n: number) => n.toLocaleString("bn-BD");
@@ -37,7 +36,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
                         className={`flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-sm font-medium ${isUp ? "text-red-600" : "text-green-600"
                             }`}
                     >
-                        {isUp ? <FaCaretUp size={16} /> : <FaCaretDown size={16} />}
+                        {isUp ? <span>▲</span> : <span>▼</span>}
                         {toBn(product.change.pct)}%
                     </span>
                 </div>

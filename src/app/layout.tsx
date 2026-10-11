@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
-import { Noto_Sans_Bengali } from "next/font/google";
+import { Hind_Siliguri } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/Components/Navbar";
 import FooterSection from "@/Components/Footer";
 import { Toaster } from "react-hot-toast";
 
 
-const notoSansBengali = Noto_Sans_Bengali({
-  subsets: ["latin", "bengali"],
+const hindSiliguri = Hind_Siliguri({
+  subsets: ["bengali", "latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-bengali",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -21,7 +24,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       data-theme="light"
 
-      className={`${notoSansBengali.className} h-full antialiased`}
+      className={`${hindSiliguri.className} h-full antialiased`}
     >
       <body className=" bg-[#f3f6f2] min-h-screen">
         <Navbar></Navbar>

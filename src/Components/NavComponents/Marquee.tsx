@@ -1,5 +1,5 @@
+
 import React from 'react';
-import { FaCaretUp, FaCaretDown } from "react-icons/fa";
 
 import MarqueeText from "react-marquee-text"
 import "react-marquee-text/dist/styles.css"
@@ -55,7 +55,7 @@ const MarqueeSection = async () => {
                                     : "text-green-500"
                             }
                         >
-                            {info.change.dir === "up" ? <FaCaretUp size={30} /> : <FaCaretDown size={30} />}
+                            {info.change.dir === "up" ? <span className='text-2xl'>▲</span> : <span className='text-2xl'>▼</span>}
                         </span>
 
                         {info.change.pct}%   

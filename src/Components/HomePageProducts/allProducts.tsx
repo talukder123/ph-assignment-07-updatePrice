@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaCaretUp, FaCaretDown } from "react-icons/fa";
+
 import ProductCard from '../productCard';
 import IProduct from '@/types/type';
 
@@ -59,7 +59,7 @@ const AllProducts = async () => {
             {/* dam bereche */}
             <div className=''>
                 <div className='flex gap-2 items-center'>
-                    <span className='text-red-500'><FaCaretUp size={30} /></span>
+                    <span className='text-red-500 text-2xl'>▲</span>
                     <h1 className='text-xl sm:text-2xl lg:text-[28px]'>আজ দাম বেড়েছে</h1>
                 </div>
 
@@ -75,7 +75,7 @@ const AllProducts = async () => {
             {/* dam komeche */}
             <div className='mt-7 sm:mt-9'>
                 <div className='flex gap-2 items-center'>
-                    <span className='text-green-500'><FaCaretDown size={30} /></span>
+                    <span className='text-green-500 text-2xl'>▼</span>
                     <h1 className='text-xl sm:text-2xl lg:text-[28px]'>আজ দাম কমেছে</h1>
                 </div>
 
