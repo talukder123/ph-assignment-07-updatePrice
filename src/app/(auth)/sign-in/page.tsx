@@ -54,52 +54,73 @@ const SignInPage = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-10">
+    <div className="min-h-screen bg-gray-50 px-3 py-6 sm:px-5 sm:py-10 lg:px-8">
       <div className="mx-auto w-full max-w-md">
 
-        {/* হেডিং: কার্ডের বাইরে */}
-        <div className="mb-6 text-center">
-          <h1 className="text-3xl font-bold text-gray-900">সাইন ইন করুন</h1>
-          <p className="mt-2 text-sm text-gray-500">
+        {/* Heading */}
+        <div className="mb-5 text-center sm:mb-6">
+          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+            সাইন ইন করুন
+          </h1>
+
+          <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-gray-500 sm:text-base">
             আপনার অ্যাকাউন্টে ঢুকে সব বিস্তারিত দাম দেখুন।
           </p>
         </div>
 
-        {/* সাদা কার্ড */}
-        <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-          <Form className="flex w-full flex-col gap-4" onSubmit={onSubmit}>
+        {/* Sign In Card */}
+        <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:rounded-3xl sm:p-6 md:p-7">
+
+          <Form
+            className="flex w-full flex-col gap-4"
+            onSubmit={onSubmit}
+          >
+            {/* Email */}
             <TextField
               isRequired
               name="email"
               type="email"
               validate={(value) => {
-                if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+                if (
+                  !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
+                ) {
                   return "সঠিক ইমেইল ঠিকানা দিন";
                 }
+
                 return null;
               }}
             >
-              <Label className="mb-1.5 block text-sm font-medium text-gray-800">ইমেইল</Label>
+              <Label className="mb-1.5 block text-sm font-medium text-gray-800">
+                ইমেইল
+              </Label>
+
               <Input
-                className="w-full rounded-xl! border! border-gray-200! bg-white! px-4! py-3! text-sm! shadow-none! focus:border-green-600! focus:ring-2 focus:ring-green-600/20"
+                className="w-full rounded-xl! border! border-gray-200! bg-white! px-3! py-3! text-sm! shadow-none! focus:border-green-600! focus:ring-2 focus:ring-green-600/20 sm:px-4!"
                 placeholder="you@example.com"
               />
+
               <FieldError className="mt-1 text-xs text-red-600" />
             </TextField>
 
+            {/* Password */}
             <TextField
               isRequired
               name="password"
               type="password"
             >
-              <Label className="mb-1.5 block text-sm font-medium text-gray-800">পাসওয়ার্ড</Label>
+              <Label className="mb-1.5 block text-sm font-medium text-gray-800">
+                পাসওয়ার্ড
+              </Label>
+
               <Input
-                className="w-full rounded-xl! border! border-gray-200! bg-white! px-4! py-3! text-sm! shadow-none! focus:border-green-600! focus:ring-2 focus:ring-green-600/20"
+                className="w-full rounded-xl! border! border-gray-200! bg-white! px-3! py-3! text-sm! shadow-none! focus:border-green-600! focus:ring-2 focus:ring-green-600/20 sm:px-4!"
                 placeholder="আপনার পাসওয়ার্ড লিখুন"
               />
+
               <FieldError className="mt-1 text-xs text-red-600" />
             </TextField>
 
+            {/* Submit Button */}
             <Button
               type="submit"
               className="mt-1 w-full rounded-xl! bg-green-700! py-3! text-sm! font-semibold! text-white! shadow-md hover:bg-green-800!"
@@ -108,53 +129,85 @@ const SignInPage = () => {
             </Button>
           </Form>
 
-          {/* অথবা */}
-          <div className="my-5 flex items-center gap-3">
+          {/* Divider */}
+          <div className="my-5 flex items-center gap-3 sm:my-6">
             <div className="h-px flex-1 bg-gray-200" />
-            <span className="text-xs text-gray-500">অথবা</span>
+
+            <span className="shrink-0 text-xs text-gray-500">
+              অথবা
+            </span>
+
             <div className="h-px flex-1 bg-gray-200" />
           </div>
 
-          {/* সোশ্যাল বাটন */}
-          <div className="grid grid-cols-2 gap-3">
+          {/* Social Login Buttons */}
+          <div className="grid grid-cols-1 gap-3 min-[400px]:grid-cols-2">
+
+            {/* Google */}
             <Button
               onClick={() => void signInWithSocialProvider("google")}
               type="button"
-              className="rounded-xl! border! border-gray-200! bg-white! py-2.5! text-sm! font-medium! text-gray-800! hover:bg-gray-50!"
+              className="flex w-full items-center justify-center gap-2 rounded-xl! border! border-gray-200! bg-white! px-2! py-3! text-sm! font-medium! text-gray-800! hover:bg-gray-50!"
             >
-              <svg className="h-4 w-4" viewBox="0 0 48 48" aria-hidden="true">
+              <svg
+                className="h-4 w-4 shrink-0"
+                viewBox="0 0 48 48"
+                aria-hidden="true"
+              >
                 <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z" />
                 <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.6 5.9c4.4-4.1 7-10.1 7-17.6z" />
                 <path fill="#FBBC05" d="M10.5 28.7a14.5 14.5 0 010-9.4l-7.9-6.1a24 24 0 000 21.6l7.9-6.1z" />
                 <path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.6-5.9c-2.1 1.4-4.8 2.3-8.3 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z" />
               </svg>
-              Google দিয়ে চালিয়ে যান
+
+              <span>Google দিয়ে চালিয়ে যান</span>
             </Button>
+
+            {/* GitHub */}
             <Button
               onClick={() => void signInWithSocialProvider("github")}
               type="button"
-              className="rounded-xl! border! border-gray-200! bg-white! py-2.5! text-sm! font-medium! text-gray-800! hover:bg-gray-50!"
+              className="flex w-full items-center justify-center gap-2 rounded-xl! border! border-gray-200! bg-white! px-2! py-3! text-sm! font-medium! text-gray-800! hover:bg-gray-50!"
             >
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <svg
+                className="h-4 w-4 shrink-0"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
                 <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 015.78 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z" />
               </svg>
-              GitHub দিয়ে চালিয়ে যান
+
+              <span>GitHub দিয়ে চালিয়ে যান</span>
             </Button>
+
           </div>
 
-          <p className="mt-5 text-center text-sm text-gray-600">
-            অ্যাকাউন্ট নেই?{' '}
-            <Link href="/sign-up" className="font-medium text-green-700 hover:underline">
+          {/* Sign Up Link */}
+          <p className="mt-5 text-center text-sm leading-6 text-gray-600 sm:mt-6">
+            অ্যাকাউন্ট নেই?{" "}
+            <Link
+              href="/sign-up"
+              className="font-medium text-green-700 hover:underline"
+            >
               সাইন আপ করুন
             </Link>
           </p>
         </div>
 
-        <p className="mt-6 text-center text-sm text-gray-500">
-          <Link href="/" className="hover:text-gray-800">← হোম পেজে ফিরে যান</Link>
+        {/* Back to Home */}
+        <p className="mt-5 text-center text-sm text-gray-500 sm:mt-6">
+          <Link
+            href="/"
+            className="transition-colors hover:text-gray-800"
+          >
+            ← হোম পেজে ফিরে যান
+          </Link>
         </p>
+
       </div>
     </div>
+
   );
 };
 
