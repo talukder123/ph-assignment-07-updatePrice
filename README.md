@@ -40,43 +40,9 @@ The project is built with Next.js and Better Auth, focusing on responsive design
 - npm
 - MongoDB database
 
-### Installation
+### Live Link
 
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/talukder123/bajar-dor.git
-   ```
-
-2. Navigate to the project directory:
-
-   ```bash
-   cd bajar-dor
-   ```
-
-3. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-4. Create a `.env.local` file in the root directory and configure your environment variables:
-
-   ```env
-   MONGODB_URL=your_mongodb_connection_string
-   BETTER_AUTH_SECRET=your_auth_secret
-   BETTER_AUTH_URL=http://localhost:3000
-   ```
-
-   Add any additional environment variables required by your authentication providers or API configuration.
-
-5. Start the development server:
-
-   ```bash
-   npm run dev
-   ```
-
-6. Open [http://localhost:3000](http://localhost:3000) in your browser.
+[Daily Bazar Dor](https://daily-bajar-dor.vercel.app/)
 
 ## 📁 Project Structure
 
